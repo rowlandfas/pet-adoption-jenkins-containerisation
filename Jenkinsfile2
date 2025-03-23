@@ -32,8 +32,8 @@ pipeline {
                     dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey ${env.NVD_API_KEY}", 
                         odcInstallation: 'DP-Check'
                 }
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
+            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
 
         stage('Build Docker image') {
