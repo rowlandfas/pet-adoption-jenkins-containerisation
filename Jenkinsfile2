@@ -25,9 +25,12 @@ pipeline {
                 sh 'mvn clean install -DskipTests -Dcheckstyle.skip'
             }
         }
-        stage('OWASP Dependency Scan') {
+        stage('Dependency check') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                withCredentials([string(credentialsId: 'nvd-key', variable: 'NVD_API_KEY')]) {
+                    dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey $NVD_API_KEY", 
+                        odcInstallation: 'DP-Check'
+                }
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
