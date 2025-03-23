@@ -26,14 +26,17 @@ pipeline {
                 sh 'mvn clean install -DskipTests -Dcheckstyle.skip'
             }
         }
+                
         stage('Dependency check') {
             steps {
                 withCredentials([string(credentialsId: 'nvd-key', variable: 'NVD_API_KEY')]) {
-                    dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey ${env.NVD_API_KEY}", 
-                        odcInstallation: 'DP-Check'
+                    sh '''
+                    export NVD_API_KEY="$NVD_API_KEY"
+                    dependencyCheck --scan ./ --disableYarnAudit --disableNodeAudit
+                    '''
                 }
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
+            } 
         }
 
         stage('Build Docker image') {
