@@ -30,8 +30,8 @@ pipeline {
                 withCredentials([string(credentialsId: 'nvd-key', variable: 'NVD_API_KEY')]) {
                     dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey ${env.NVD_API_KEY}", 
                         odcInstallation: 'DP-Check'
-                }
             }
+        }
             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
 
