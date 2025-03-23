@@ -4,6 +4,7 @@ pipeline {
         NEXUS_USER = credentials('nexus-username')
         NEXUS_PASSWORD = credentials('nexus-password')
         NEXUS_REPO = credentials('nexus-repo')
+        NVD_API_KEY= credentials('nvd-key')
     }
     stages {
         stage('Code analisys stage') {
