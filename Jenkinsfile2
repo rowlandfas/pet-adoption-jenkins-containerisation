@@ -35,8 +35,8 @@ pipeline {
                         dependencyCheck --scan ./ --disableYarnAudit --disableNodeAudit
                         '''
                     }
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                 }
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
 
