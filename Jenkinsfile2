@@ -28,12 +28,13 @@ pipeline {
         stage('Dependency check') {
             steps {
                 withCredentials([string(credentialsId: 'nvd-key', variable: 'NVD_API_KEY')]) {
-                    dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey $NVD_API_KEY", 
+                    dependencyCheck additionalArguments: "--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey ${env.NVD_API_KEY}", 
                         odcInstallation: 'DP-Check'
                 }
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
+            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
+
         stage('Build Docker image') {
             steps {
                 sh 'docker build -t $NEXUS_REPO/myapp .'
