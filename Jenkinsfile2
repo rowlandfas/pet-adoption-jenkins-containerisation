@@ -39,6 +39,12 @@ pipeline {
                 sh 'docker build -t $NEXUS_REPO/myapp .'
             }
         }
+        stage('Login to Nexus repo') {
+            steps {
+                sh 'docker login --username $NEXUS_USER --password $NEXUS_PASSWORD $NEXUS_REPO'
+            }
+        }
+
         stage('Push artifacts to nexus-repo') {
             steps {
                 nexusArtifactUploader artifacts: [[artifactId: 'spring-petclinic',
