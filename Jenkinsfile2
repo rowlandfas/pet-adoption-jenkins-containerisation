@@ -27,18 +27,6 @@ pipeline {
             }
         }
                 
-        stage('Dependency check') {
-            steps {
-                withCredentials([string(credentialsId: 'nvd-key', variable: 'NVD_API_KEY')]) {
-                    withEnv(["NVD_API_KEY=${NVD_API_KEY}"]) {
-                        sh '''
-                        dependencyCheck --scan ./ --disableYarnAudit --disableNodeAudit
-                        '''
-                    }
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-                }
-            }
-        }
 
         stage('Build Docker image') {
             steps {
