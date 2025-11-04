@@ -12,6 +12,6 @@ def test_homepage_loads():
     driver = webdriver.Chrome(options=options)
     driver.get("http://15.237.186.37:8081")
 
-    assert "Pet Adoption" in driver.title
+    assert "PetClinic" in driver.title
     driver.quit()
 
