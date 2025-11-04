@@ -10,7 +10,7 @@ def test_homepage_loads():
     options.add_argument("--disable-dev-shm-usage")
 
     driver = webdriver.Chrome(options=options)
-    driver.get("http://15.237.186.37:8080")
+    driver.get("http://15.237.186.37:8081")
 
     assert "Pet Adoption" in driver.title
     driver.quit()
